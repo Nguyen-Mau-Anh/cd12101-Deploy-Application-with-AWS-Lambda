@@ -5,6 +5,8 @@ service: serverless-todo-app
 plugins:
   - serverless-iam-roles-per-function
 
+frameworkVersion: '4.4.13'
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -44,14 +46,13 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+        Resource: 
+          - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}
+          - arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.TODOS_CREATED_AT_INDEX}
       - Effect: Allow
         Action:
-          - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.INDEX_NAME}
-      - Effect: Allow
-        Action:
-          - xray:PutTraceSegments
+          - 'xray:PutTraceSegments'
+          - 'xray:PutTelemetryRecords'
         Resource: "*"
 
 

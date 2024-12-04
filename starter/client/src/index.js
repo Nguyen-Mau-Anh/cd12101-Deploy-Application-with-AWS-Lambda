@@ -9,7 +9,7 @@ const domain = process.env.REACT_APP_AUTH0_DOMAIN
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
 ReactDOM.render(
   <Auth0Provider
-    domain={domain}
+    domain='anhnm50.us.auth0.com'
     clientId={clientId}
     redirectUri={window.location.origin}
     audience={`https://${domain}/api/v2/`}
